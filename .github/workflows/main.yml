@@ -60,7 +60,7 @@ jobs:
 
   deploy-to-ecr:
     name: Push Docker Images to ECR on Merge
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature'
     runs-on: ubuntu-latest
 
     permissions:
