@@ -83,18 +83,22 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
           docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      - name: Build Backend Image
+      - name: Build and Tag Backend Image
         run: |
           docker build -t ${{ env.BACKEND_IMAGE_NAME }} ./backend
-          docker tag ${{ env.BACKEND_IMAGE_NAME }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+          docker tag ${{ env.BACKEND_IMAGE_NAME }}:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}:backend-latest
 
-      - name: Build Frontend Image
+      - name: Build and Tag Frontend Image
         run: |
           docker build -t ${{ env.FRONTEND_IMAGE_NAME }} ./frontend
-          docker tag ${{ env.FRONTEND_IMAGE_NAME }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+          docker tag ${{ env.FRONTEND_IMAGE_NAME }}:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}:frontend-latest
 
       - name: Push Backend to ECR
-        run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}:backend-latest
 
       - name: Push Frontend to ECR
-        run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO_NAME }}:frontend-latest
