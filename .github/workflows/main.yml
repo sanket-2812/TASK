@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "feature2" ]
+    branches: [ "feature" ]
   pull_request:
 
 env:
@@ -60,7 +60,7 @@ jobs:
 
   deploy-to-ecr:
     name: Push Docker Images to ECR on Merge
-    if: github.event_name == 'push' && github.ref == 'remotes/origin/feature'
+    if: github.ref == 'refs/heads/feature' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
     permissions:
