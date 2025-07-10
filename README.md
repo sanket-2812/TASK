@@ -3,7 +3,7 @@
 #![CI](https://github.com/wlsf82/frontend-and-backend/actions/workflows/ci.yml/badge.svg)
 
 Sample project with basic "backend" and frontend, running Cypress tests on GitHub Actions.
-
+#
 ## Pre-requirements
 
 To run this project, you will need:
