@@ -1,6 +1,6 @@
 # frontend-and-backend
 #pR
-![CI](https://github.com/wlsf82/frontend-and-backend/actions/workflows/ci.yml/badge.svg)
+#![CI](https://github.com/wlsf82/frontend-and-backend/actions/workflows/ci.yml/badge.svg)
 
 Sample project with basic "backend" and frontend, running Cypress tests on GitHub Actions.
 
