@@ -82,11 +82,18 @@ jobs:
       id-token: write
 
     env:
-      IMAGE_TAG: ${{ github.sha }}
+      RAW_TAG: ${{ github.event.head_commit.message }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Sanitize Commit Message to Use as Tag
+        id: tag
+        run: |
+          CLEAN_TAG=$(echo "${{ env.RAW_TAG }}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9\-')
+          echo "Cleaned Tag: $CLEAN_TAG"
+          echo "IMAGE_TAG=$CLEAN_TAG" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
