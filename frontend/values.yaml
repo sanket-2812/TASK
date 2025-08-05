@@ -8,7 +8,7 @@ image:
 imagePullSecrets: []
 
 service:
-  type: LoadBalancer   # ✅ You still want this to be externally exposed
+  type: LoadBalancer
   port: 80
 
 serviceAccount:
@@ -18,11 +18,10 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # ✅ If you want HTTPS only
   hosts:
-    - host: app.sanketsarode.shop    # ✅ Correct subdomain
+    - host: app.sanketsarode.shop
       paths:
         - path: /
           pathType: Prefix
