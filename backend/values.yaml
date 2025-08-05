@@ -15,21 +15,10 @@ serviceAccount:
   create: false
 
 ingress:
-  enabled: true
-  className: "nginx"   # or leave null if default
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-   
-  hosts:
-    - host: backend.sanketsarode.shop
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: backend-tls
-      hosts:
-        - backend.sanketsarode.shop
+  enabled: false    # ❌ Disabling Helm-managed Ingress; using shared ALB instead
+
+# Leave TLS config out since Ingress is not being created by Helm
+# It will be handled in the shared ALB Ingress YAML
 
 autoscaling:
   enabled: false

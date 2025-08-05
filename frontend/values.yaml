@@ -8,27 +8,17 @@ image:
 imagePullSecrets: []
 
 service:
-  type: LoadBalancer
+  type: ClusterIP     # ✅ ALB needs internal ClusterIP, not LoadBalancer
   port: 80
 
 serviceAccount:
   create: false
 
 ingress:
-  enabled: true
-  className: "nginx"
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # ✅ If you want HTTPS only
-  hosts:
-    - host: app.sanketsarode.shop
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: frontend-tls
-      hosts:
-        - app.sanketsarode.shop
+  enabled: false     # ❌ Disable Helm-managed ingress (using shared ALB YAML)
+
+# TLS handled by external Ingress, not Helm
+# This section is removed
 
 autoscaling:
   enabled: false
