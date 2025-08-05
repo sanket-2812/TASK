@@ -1,24 +1,33 @@
 replicaCount: 1
 
 image:
-  repository: ""
+  repository: ""   # 🔧 Replace with your frontend image repository
   tag: "latest"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 
 service:
-  type: LoadBalancer
+  type: LoadBalancer   # ✅ Exposes the service externally
   port: 80
-
-
 
 serviceAccount:
   create: false
 
 ingress:
-  enabled: false
+  enabled: true
+  className: "nginx"   # or leave blank if you're using default ingress class
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: sanketsarode.shop
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: frontend-sanket-tls
+      hosts:
+        - sanketsarode.shop
 
 autoscaling:
   enabled: false
-

@@ -1,21 +1,33 @@
 replicaCount: 1
 
 image:
-  repository: ""  
+  repository: ""   # Set your backend image repository (e.g., <your-ecr-repo>)
   tag: "latest"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 
 service:
-  type: LoadBalancer
+  type: ClusterIP     # ✅ Using ClusterIP for internal service
   port: 3000
+
 serviceAccount:
   create: false
 
 ingress:
-  enabled: false
+  enabled: true
+  className: "nginx"   # or leave null if default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: backend.sanketsarode.shop
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: backend-sanket-tls
+      hosts:
+        - backend.sanketsarode.shop
 
 autoscaling:
   enabled: false
-

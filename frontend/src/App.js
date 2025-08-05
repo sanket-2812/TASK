@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const serverURL = 'http://a6615e78b80164b788333839e15bd389-84686700.eu-north-1.elb.amazonaws.com:3000/';
+const serverURL = 'https://backend.sanketsarode.shop/';
 
 class CustomerApp extends Component {
   constructor() {
