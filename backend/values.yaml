@@ -21,10 +21,7 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      location ^~ /.well-known/acme-challenge/ {
-        allow all;
-      }
+   
   hosts:
     - host: backend.sanketsarode.shop
       paths:
