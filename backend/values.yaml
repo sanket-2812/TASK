@@ -10,6 +10,7 @@ imagePullSecrets: []
 service:
   type: ClusterIP     # ✅ Using ClusterIP for internal service
   port: 3000
+  targetPort: 3000
 
 serviceAccount:
   create: false

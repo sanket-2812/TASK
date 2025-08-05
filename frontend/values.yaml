@@ -10,7 +10,7 @@ imagePullSecrets: []
 service:
   type: ClusterIP     # ✅ ALB needs internal ClusterIP, not LoadBalancer
   port: 80
-
+  targetPort: 80
 serviceAccount:
   create: false
 
