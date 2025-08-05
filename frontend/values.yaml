@@ -31,7 +31,7 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: frontend-sanket-tls
+    - secretName: frontend-tls
       hosts:
         - app.sanketsarode.shop
 
